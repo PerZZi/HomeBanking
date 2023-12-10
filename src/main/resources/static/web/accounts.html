@@ -28,9 +28,9 @@
             <div class="flex flex-wrap justify-center items-center gap-4 my-10">
                 <template v-if="accounts.length > 0" v-for="account in accounts">
                     <article class="flex flex-col justify-center items-center gap-4 bg-white rounded-lg px-2 h-[200px] w-[350px]">
-                        <h2 class="text-2xl text-blue-700 w-full">Numero de Cuenta:{{account.number}}</h2>
-                        <h2 class="text-2xl text-blue-700 w-full ">Monto:{{account.balance}}</h2>
-                        <h2 class="text-2xl text-blue-700 w-full">Fecha de Creaccion:{{account.creationDate}}</h2>
+                        <h2 class="text-2xl text-blue-700 w-full">Numero de Cuenta: {{account.number}}</h2>
+                        <h2 class="text-2xl text-blue-700 w-full ">Monto: {{formatBudget(account.balance)}}</h2>
+                        <h2 class="text-2xl text-blue-700 w-full">Fecha de Creaccion: {{account.creationDate}}</h2>
                         <p></p>
                     </article>
                 </template>

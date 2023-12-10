@@ -10,6 +10,7 @@ let app = createApp({
 
   created() {
     this.loadData()
+    this.formatBudget()
   },
   methods: {
    loadData(){
@@ -22,6 +23,15 @@ let app = createApp({
     })
     .catch(error => console.log(error))
    },
+   formatBudget(balance) {
+    if (balance !== undefined && balance !== null) {
+        return balance.toLocaleString("en-US", {
+            style: "currency",
+            currency: "ARS",
+            minimumFractingDigits: 0,
+        })
+    }
+},
 
    deleteClient(){
     axios.delete("/api/clients/1")
