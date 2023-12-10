@@ -1,12 +1,12 @@
 package com.MindHub.HomeBanking.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Cliente {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,12 +14,14 @@ public class Cliente {
     private String name;
     private String lastName;
     private String email;
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Account> acounts = new ArrayList<>();
 
 
-    public Cliente() {
+    public Client() {
     }
 
-    public Cliente(String name, String lastName, String email) {
+    public Client(String name, String lastName, String email) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -53,9 +55,18 @@ public class Cliente {
         this.email = email;
     }
 
+    public List<Account> getAcounts() {
+        return acounts;
+    }
+
+    public void addAcount(Account account){
+        account.setClient(this);
+        this.acounts.add(account);
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" +
+        return "Client{" +
                 "ID=" + ID +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +

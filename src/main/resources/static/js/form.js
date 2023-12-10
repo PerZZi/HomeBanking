@@ -15,7 +15,7 @@ let app = createApp({
   },
   methods: {
     loadData() {
-      axios.get("/clientes")
+      axios.get("/clients")
         .then(response => {
           this.data = response.data._embedded.clientes
           console.log(this.data)
@@ -30,14 +30,20 @@ let app = createApp({
         "lastName": this.lastName,
         "email": this.email
       }
-      axios.post("/clientes", nuevoCliente)
+      axios.post("/clients", nuevoCliente)
         
       
           .then(response => {
             this.data = response
             this.loadData()
+            this.clearFields()
           })
           .catch(error => console.log(error))
+    },
+    clearFields() {
+      this.name = "";
+      this.lastName = "";
+      this.email = "";
     }
   }
 
