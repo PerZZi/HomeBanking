@@ -1,12 +1,7 @@
 package com.MindHub.HomeBanking;
 
-import com.MindHub.HomeBanking.models.Account;
-import com.MindHub.HomeBanking.models.Client;
-import com.MindHub.HomeBanking.models.Transaction;
-import com.MindHub.HomeBanking.models.TransactionType;
-import com.MindHub.HomeBanking.repositories.AccountRepositories;
-import com.MindHub.HomeBanking.repositories.ClienteRepositories;
-import com.MindHub.HomeBanking.repositories.TransactionRepositories;
+import com.MindHub.HomeBanking.models.*;
+import com.MindHub.HomeBanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootApplication
 public class HomeBankingApplication {
@@ -23,7 +19,7 @@ public class HomeBankingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClienteRepositories clienteRepositories , AccountRepositories accountRepositories, TransactionRepositories transactionRepositories){
+	public CommandLineRunner initData(ClienteRepositories clienteRepositories , AccountRepositories accountRepositories, TransactionRepositories transactionRepositories, ClientLoanRepositories clientLoanRepositories, LoanRepositories loanRepositories){
 		return args -> {
 
 			Client client1 = new Client("Melba","Morel","melba@mindhub.com");
@@ -46,6 +42,30 @@ public class HomeBankingApplication {
 			transactionRepositories.save(transaction1);
 			transactionRepositories.save(transaction2);
 			transactionRepositories.save(transaction3);
+
+
+			Loan hipotecario = new Loan("Hipotecario", 500000, List.of(12,24,36,48,60));
+			Loan personal = new Loan("Personal", 100000, List.of(6,12,24));
+			Loan automotriz = new Loan("Automotriz", 300000, List.of(6,12,24,36));
+			loanRepositories.save(hipotecario);
+			loanRepositories.save(personal);
+			loanRepositories.save(automotriz);
+
+
+			ClientLoan clientLoan1 = new ClientLoan(400000,60);
+			ClientLoan clientLoan2 = new ClientLoan(50000,12);
+
+
+			client1.addClientLoan(clientLoan1);
+			client1.addClientLoan(clientLoan2);
+
+			hipotecario.addClientLoan(clientLoan1);
+			personal.addClientLoan(clientLoan2);
+
+			clientLoanRepositories.save(clientLoan1);
+			clientLoanRepositories.save(clientLoan2);
+
+
 
 
 			System.out.println(client1);

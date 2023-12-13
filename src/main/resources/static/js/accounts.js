@@ -5,6 +5,7 @@ let app = createApp({
     return {
       data: [],
       accounts: [],
+      loans: []
     }
   },
 
@@ -18,8 +19,10 @@ let app = createApp({
     .then(response =>{
       this.data = response.data
       this.accounts = this.data.accounts
+      this.loans = response.data.clientLoans
       console.log(this.data)
       console.log(this.accounts)
+      console.log(this.loans)
     })
     .catch(error => console.log(error))
    },

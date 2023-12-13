@@ -27,7 +27,7 @@
         </header>
 
         <main class="flex flex-col grow min-h-screen">
-            <section class="flex flex-col items-center bg-white h-[500px] w-full rounded-lg">
+            <section class="flex flex-col items-center gap-4 bg-white h-[500px] w-full rounded-lg">
                 <h2 class="text-4xl text-blue-700">!Hola, {{data.name}}</h2>
                 <div class="flex flex-wrap justify-center items-center gap-4 my-10">
                     <template v-if="accounts.length > 0" v-for="account in accounts">
@@ -49,6 +49,25 @@
                         <a v-bind:href="'./account.html?id=' + account.id" class="bg-gray-200 hover:bg-blue-700 hover:text-white p-2 rounded-lg w-[100px] text-blue-700">Detalle</a>
                     </template>
                 </div>
+
+                <table class="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-100">
+                        <tr class="text-left">
+                            <th class="py-2 px-4 text-blue-700">Loan</th>
+                            <th class="py-2 px-4 text-blue-700">Amount</th>
+                            <th class="py-2 px-4 text-blue-700">Payments</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template v-if="loans.length > 0" v-for="clientLoans in loans">
+                            <tr class="border-t border-gray-300">
+                                <td class="py-2 px-4">{{clientLoans .loan}}</td>
+                                <td class="py-2 px-4">{{clientLoans .amount }}</td>
+                                <td class="py-2 px-4">{{clientLoans .payments}}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
             </section>
         </main>
         <footer class="h-10">

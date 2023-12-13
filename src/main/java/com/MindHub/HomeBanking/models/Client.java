@@ -3,7 +3,9 @@ package com.MindHub.HomeBanking.models;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Client {
@@ -17,6 +19,8 @@ public class Client {
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Account> acounts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private Set<ClientLoan> clientLoans = new HashSet<>();
 
     public Client() {
     }
@@ -59,9 +63,18 @@ public class Client {
         return acounts;
     }
 
+    public Set<ClientLoan> getClientLoans() {
+        return clientLoans;
+    }
+
     public void addAcount(Account account){
         account.setClient(this);
         this.acounts.add(account);
+    }
+
+    public void addClientLoan(ClientLoan clientLoan){
+        clientLoan.setClient(this);
+        this.clientLoans.add(clientLoan);
     }
 
     @Override
