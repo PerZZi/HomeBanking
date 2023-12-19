@@ -21,10 +21,10 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, double amount, String descripcion, LocalDateTime date) {
+    public Transaction(TransactionType type, double amount, String description, LocalDateTime date) {
         this.type = type;
         this.amount = amount;
-        this.description = descripcion;
+        this.description = description;
         this.date = date;
     }
 
@@ -48,12 +48,12 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getDescripcion() {
+    public String getDescription() {
         return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.description = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getDate() {
@@ -78,7 +78,7 @@ public class Transaction {
                 "id=" + id +
                 ", type=" + type +
                 ", amount=" + amount +
-                ", descripcion='" + description + '\'' +
+                ", description='" + description + '\'' +
                 ", date=" + date +
                 ", account=" + account +
                 '}';

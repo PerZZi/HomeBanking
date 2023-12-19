@@ -3,7 +3,9 @@ const { createApp } = Vue
 let app = createApp({
   data() {
     return {
+      data : [],
       transactions: [],
+      id : null
     }
   },
 
@@ -17,8 +19,10 @@ let app = createApp({
   },
   methods: {
     loadData() {
-      axios.get("/api/accounts/"+ this.id +"/transactions")
+      axios.get("/api/accounts/"+this.id+"/transactions")
         .then(response => {
+          this.data = response.data
+          console.log(this.data)
           this.transactions = response.data
           console.log(this.transactions)
         })

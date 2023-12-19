@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<div id="app">
+
+    <body class="bg-neutral-200">
+
+        <header class="h-20 flex justify-between">
+            <div class="flex items-center">
+                <img src="../images/banco (1).png" alt="">
+                <h1 class="text-white text-4xl">HomeBanking</h1>
+            </div>
+
+            <nav class="text-xl text-blue-700 flex gap-4 items-center">
+                <a class="text-white text-2xl" href="../index.html">ClientManager</a>
+                <img src="../images/usuario (1).png" alt="">
+                <a class="text-white text-2xl" href="../web/accounts.html">Accounts</a>
+                <img src="../images/transaccion (1).png" alt="">
+                <a class="text-white text-2xl" href="../web/account.html">Transaction</a>
+                <img src="../images/tarjeta-de-credito_2.png" alt="">
+                <a class="text-white text-2xl" href="./cards.html">Cards</a>
+            </nav>
+        </header>
+
+        <main class="flex flex-col grow min-h-screen">
+            <div
+                class="w-96 h-56 m-auto bg-yellow-500 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110">
+                <div class="w-full px-8 absolute top-8">
+                    <div class="flex justify-between">
+                        <div class="">
+                            <p class="font-light">
+                                Name
+                                </h1>
+                            <p class="font-medium tracking-widest">
+                                Karthik P
+                            </p>
+                        </div>
+                        <img class="w-14 h-14" src="https://i.imgur.com/bbPHJVe.png" />
+                    </div>
+                    <div class="pt-1">
+                        <p class="font-light">
+                            Card Number
+                            </h1>
+                        <p class="font-medium tracking-more-wider">
+                            4642 3489 9867 7632
+                        </p>
+                    </div>
+                    
+                    <div class="pt-6 pr-6">
+
+                        <div class="flex justify-between">
+                            <div class="">
+                                <p class="font-light text-xs">
+                                    Valid
+                                    </h1>
+                                <p class="font-medium tracking-wider text-sm">
+                                    11/15
+                                </p>
+                            </div>
+                            <div class="">
+                                <p class="font-light text-xs text-xs">
+                                    Expiry
+                                    </h1>
+                                <p class="font-medium tracking-wider text-sm">
+                                    03/25
+                                </p>
+                            </div>
+
+                            <div class="">
+                                <p class="font-light text-xs">
+                                    CVV
+                                    </h1>
+                                <p class="font-bold tracking-more-wider text-sm">
+                                    ···
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <footer class="h-10">
+            <h3 class="text-white text-2xl">WWW.HOMEBAKING.COM</h3>
+        </footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="../js/tailwind.config.js"></script>
+<script src="../js/cards.js"></script>
+</body>
+
+</html>

@@ -23,11 +23,13 @@
                 <a class="text-white text-2xl" href="../web/accounts.html">Accounts</a>
                 <img src="../images/transaccion (1).png" alt="">
                 <a class="text-white text-2xl" href="../web/account.html">Transaction</a>
+                <img src="../images/tarjeta-de-credito_2.png" alt="">
+                <a class="text-white text-2xl" href="./cards.html">Cards</a>
             </nav>
         </header>
 
         <main class="flex flex-col grow min-h-screen">
-            <section class="flex flex-col items-center gap-4 bg-white h-[500px] w-full rounded-lg">
+            <section class="flex flex-col items-center gap-4 h-[500px] w-full rounded-lg">
                 <h2 class="text-4xl text-blue-700">!Hola, {{data.name}}</h2>
                 <div class="flex flex-wrap justify-center items-center gap-4 my-10">
                     <template v-if="accounts.length > 0" v-for="account in accounts">
@@ -46,11 +48,11 @@
 
                 <div class="flex gap-60">
                     <template v-if="accounts.length > 0" v-for="account in accounts">
-                        <a v-bind:href="'./account.html?id=' + account.id" class="bg-gray-200 hover:bg-blue-700 hover:text-white p-2 rounded-lg w-[100px] text-blue-700">Detalle</a>
+                        <a v-bind:href="'./account.html?id=' + account.id" class="bg-blue-700 hover:bg-blue-700 hover:text-white p-2 rounded-lg w-[100px] text-white">Detalle</a>
                     </template>
                 </div>
 
-                <table class="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
+                <table class="w-[500px] bg-white border border-gray-300 rounded-lg overflow-hidden">
                     <thead class="bg-gray-100">
                         <tr class="text-left">
                             <th class="py-2 px-4 text-blue-700">Loan</th>

@@ -21,7 +21,7 @@ public class TransactionDTO {
         id = transaction.getId();
         type = transaction.getType();
         amount = transaction.getAmount();
-        description = transaction.getDescripcion();
+        description = transaction.getDescription();
         date = transaction.getDate();
     }
 
