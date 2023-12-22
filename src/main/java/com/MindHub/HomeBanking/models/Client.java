@@ -16,6 +16,9 @@ public class Client {
     private String name;
     private String lastName;
     private String email;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private RolType rol= RolType.CLIENT;
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Account> acounts = new ArrayList<>();
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
@@ -25,10 +28,11 @@ public class Client {
     public Client() {
     }
 
-    public Client(String name, String lastName, String email) {
+    public Client(String name, String lastName, String email, String password) {
         this.name = name;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
     }
 
     public Long getID() {
@@ -57,6 +61,22 @@ public class Client {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public RolType getRol() {
+        return rol;
+    }
+
+    public void setRol(RolType rol) {
+        this.rol = rol;
     }
 
     public List<Account> getAcounts() {
@@ -97,6 +117,7 @@ public class Client {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

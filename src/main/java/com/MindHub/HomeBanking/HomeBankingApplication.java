@@ -2,10 +2,12 @@ package com.MindHub.HomeBanking;
 
 import com.MindHub.HomeBanking.models.*;
 import com.MindHub.HomeBanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -13,19 +15,20 @@ import java.util.List;
 
 @SpringBootApplication
 public class HomeBankingApplication {
-
+    @Autowired
+	private PasswordEncoder passwordEncoder;
 	public static void main(String[] args) {
 		SpringApplication.run(HomeBankingApplication.class, args);
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClienteRepositories clienteRepositories , AccountRepositories accountRepositories, TransactionRepositories transactionRepositories, ClientLoanRepositories clientLoanRepositories, LoanRepositories loanRepositories, CardRepositories cardRepositories){
+	public CommandLineRunner initData(ClientRepositories clientRepositories, AccountRepositories accountRepositories, TransactionRepositories transactionRepositories, ClientLoanRepositories clientLoanRepositories, LoanRepositories loanRepositories, CardRepositories cardRepositories){
 		return args -> {
 
-			Client client1 = new Client("Melba","Morel","melba@mindhub.com");
+			Client client1 = new Client("Melba","Morel","melba@mindhub.com", passwordEncoder.encode("melba123"));
 			Account cuenta1 =new Account("VIN-00001",LocalDate.now().plusDays(1),5000);
 			Account cuenta2 =new Account("VIN-00002",LocalDate.now().plusDays(2),7500);
-			clienteRepositories.save(client1);
+			clientRepositories.save(client1);
 
 			client1.addAcount(cuenta1);
 			client1.addAcount(cuenta2);
@@ -80,10 +83,10 @@ public class HomeBankingApplication {
 			System.out.println(transaction2);
 			System.out.println(transaction3);
 
-			Client client2 = new Client("Jorge","Sanchez","jorge@mindHun.com");
+			Client client2 = new Client("Jorge","Sanchez","jorge@mindHun.com","jorge123");
 			Account cuenta3 =new Account("VIN-00003",LocalDate.now().plusDays(3),7700);
 
-			clienteRepositories.save(client2);
+			clientRepositories.save(client2);
 
 			client2.addAcount(cuenta3);
 
@@ -91,6 +94,11 @@ public class HomeBankingApplication {
 
 			System.out.println(client2);
 			System.out.println(cuenta3);
+
+			Client admin = new Client("Xavi","Noche","xavi@admin.com",passwordEncoder.encode("admin"));
+			admin.setRol(RolType.ADMIN);
+
+			clientRepositories.save(admin);
 
 		};
 	}

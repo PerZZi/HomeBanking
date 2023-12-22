@@ -19,7 +19,7 @@ let app = createApp({
   },
   methods: {
     loadData() {
-      axios.get("/api/accounts/"+this.id+"/transactions")
+      axios.get("/api/accounts/" + this.id + "/transactions")
         .then(response => {
           this.data = response.data
           console.log(this.data)
@@ -39,7 +39,7 @@ let app = createApp({
     },
 
     deleteClient() {
-      axios.delete("/api/accounts/1/transactions")
+      axios.delete("/api/accounts/current/transaction")
         .then(response => {
           console.log(response)
         })
