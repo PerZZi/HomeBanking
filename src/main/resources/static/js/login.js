@@ -22,6 +22,14 @@ let app = createApp({
       })
       .catch(response => console.log(response))
     },
+    getName(event){
+      this.name = event.target.value
+      console.log("Name", this.name)
+  },
+  getLastName(event){
+    this.lastName = event.target.value
+    console.log("LastName", this.lastName)
+},
 
     getEmail(event){
       this.email = event.target.value

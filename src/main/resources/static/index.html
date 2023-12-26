@@ -25,6 +25,10 @@
         <main class="h-full flex justify-center items-center flex-col min-h-screen gap-10">
             <img class="h-[270px] w-full object-cover mt-6" src="./images/Banner-Banco.jpg" alt="">
 
+
+            <section class="flex gap-20 mb-4">
+            <div>
+
             <div class="bg-white p-4 rounded-lg text-blue-700 flex flex-col items-center gap-4">
                 <h2 class="text-3xl">Login</h2>
                 <img src="./images/banca-por-internet.png" alt="">
@@ -42,6 +46,43 @@
                     <button @click.prevent="login" class="bg-blue-700 text-white w-[200px] p-1 rounded-lg hover:bg-blue-900">Log in</button>
                   </form>
             </div>
+
+          </div>
+
+            <div>
+
+            <div class="bg-white p-4 rounded-lg text-blue-700 flex flex-col items-center gap-4">
+              <h2 class="text-3xl">Register</h2>
+              <img src="./images/referir (1).png" alt="">
+              <form class="flex flex-col items-center gap-4 text-xl">
+                Name:
+                <label>
+                  <input @input="getName" :value="name" type="text"
+                    class="p-1 border-2 border-black rounded-lg w-80 text-black">
+                </label>
+                lastName:
+                <label>
+                  <input @input="getLastName" :value="lastName" type="text"
+                    class="p-1 border-2 border-black rounded-lg w-80 text-black">
+                </label>
+                Email:
+                <label>
+                  <input @input="getEmail" :value="email" type="email"
+                    class="p-1 border-2 border-black rounded-lg w-80 text-black">
+                </label>
+                Password:
+                <label>
+                  <input @input="getPassword" :value="password" type="password"
+                    class="p-1 border-2 border-black rounded-lg w-80 text-black">
+                </label>
+                <button @click.prevent="register"
+                  class="bg-blue-700 text-white w-[200px] p-1 rounded-lg hover:bg-blue-900">Register</button>
+              </form>
+            </div>
+
+          </div>
+        </section>
+
         </main>
         <footer class="h-10">
             <h3 class="text-white text-2xl">WWW.HOMEBAKING.COM</h3>

@@ -35,7 +35,7 @@ public class ClientController {
       return clientRepositories.findById(id).map(ClientDTO::new).orElse(null);
     }
 
-    @PostMapping("/clients")
+    @PostMapping("")
     public ResponseEntity<String> createClient(
              @RequestParam String name,
              @RequestParam String lastName,
