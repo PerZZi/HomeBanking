@@ -39,7 +39,7 @@ public class CardController {
         long color = client.getCards().stream().filter(card -> card.getColor() == colorType).count();
         long types = client.getCards().stream().filter(card -> card.getType() == type).count();
 
-        if(client.getCards().size() <= 6){
+        if(client.getCards().size() >= 6){
             return new ResponseEntity<>("Se alcanzo limite de tarjetas que puedes tener", HttpStatus.FORBIDDEN);
         }
         if(types >= 3){

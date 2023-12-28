@@ -4,7 +4,9 @@ let app = createApp({
   data() {
     return {
       data: [],
-      cards: []
+      cards: [],
+      type: "",
+      color:""
     }
   },
 
@@ -34,10 +36,20 @@ let app = createApp({
     },
 
     createCard() {
-      axios.post("/api/clients/current/cards?colors=" + this.selectedColor + "&cardType=" + this.selectedType)
+      axios.post("/api/clients/current/cards?type=" + this.type+ "&colorType=" + this.color)
         .then(response => console.log(response))
         .catch(error => console.log(error))
     },
+
+    // getType(event){
+    //   this.type = event.target.value
+    //   console.log("type",this.type)
+    // },
+
+    // getColor(event){
+    //   this.color = event.target.value
+    //   console.log("colorType",this.color)
+    // },
 
     deleteClient() {
       axios.delete("/api/clients/current")

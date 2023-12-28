@@ -32,9 +32,20 @@
         </header>
 
         <main class="flex flex-col grow min-h-screen">
-            <div class="flex flex-col items-center gap-4">
-                <button @click="createAccount" class="bg-blue-700 text-white p-2 rounded-lg w-[200px]">Crear
-                    Card</button>
+            <div class="flex flex-col items-center gap-20">
+                <div class="flex gap-10">
+                    <button @click="createCard" class="bg-blue-700 text-white p-2 rounded-lg w-[200px]">Crear
+                        Card</button>
+                    <select v-model="type" class="bg-blue-700 w-[200px] rounded-lg text-white" name="" id="type">
+                        <option value="CREDIT">Credit</option>
+                        <option value="DEBIT">Debit</option>
+                    </select>
+                    <select v-model="color" class="bg-blue-700 w-[200px] rounded-lg text-white" name="" id="colorType">
+                        <option value="GOLD">Gold</option>
+                        <option value="SILVER">Silver</option>
+                        <option value="TITANIUM">Titanium</option>
+                    </select>
+                </div>
                 <div class="flex gap-20">
                     <template v-if="cards.length > 0" v-for="card in cards" :key="card.id">
                         <template v-if="card.colorType == 'GOLD'">
@@ -94,6 +105,60 @@
                         <template v-if="card.colorType == 'TITANIUM'">
                             <div
                                 class="w-96 h-56 m-auto bg-gray-600 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110">
+                                <div class="w-full px-8 absolute top-8">
+                                    <div class="flex justify-between">
+                                        <div class="">
+                                            <p class="font-light">
+                                                Name
+                                            </p>
+                                            <p class="font-medium tracking-widest">
+                                                {{ card.cardholder }}
+                                            </p>
+                                        </div>
+                                        <img class="w-14 h-14" src="https://i.imgur.com/bbPHJVe.png" />
+                                    </div>
+                                    <div class="pt-1">
+                                        <p class="font-light">
+                                            Card Number
+                                        </p>
+                                        <p class="font-medium tracking-more-wider">
+                                            {{ card.number }}
+                                        </p>
+                                    </div>
+                                    <div class="pt-6 pr-6">
+                                        <div class="flex justify-between">
+                                            <div class="">
+                                                <p class="font-light text-xs">
+                                                    Valid
+                                                </p>
+                                                <p class="font-medium tracking-wider text-sm">
+                                                    {{ card.fromDate }}
+                                                </p>
+                                            </div>
+                                            <div class="">
+                                                <p class="font-light text-xs text-xs">
+                                                    Expiry
+                                                </p>
+                                                <p class="font-medium tracking-wider text-sm">
+                                                    {{ card.thruDate }}
+                                                </p>
+                                            </div>
+                                            <div class="">
+                                                <p class="font-light text-xs">
+                                                    CVV
+                                                </p>
+                                                <p class="font-bold tracking-more-wider text-sm">
+                                                    {{ card.cvv }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <template v-if="card.colorType == 'SILVER'">
+                            <div
+                                class="w-96 h-56 m-auto bg-zinc-400 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-110">
                                 <div class="w-full px-8 absolute top-8">
                                     <div class="flex justify-between">
                                         <div class="">
