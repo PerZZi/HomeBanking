@@ -1,7 +1,9 @@
 package com.MindHub.HomeBanking.controllers;
 
 import com.MindHub.HomeBanking.dto.ClientDTO;
+import com.MindHub.HomeBanking.models.Account;
 import com.MindHub.HomeBanking.models.Client;
+import com.MindHub.HomeBanking.repositories.AccountRepositories;
 import com.MindHub.HomeBanking.repositories.ClientRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +21,9 @@ import java.util.stream.Collectors;
 public class ClientController {
     @Autowired
     private ClientRepositories clientRepositories;
+
+    @Autowired
+    private AccountRepositories accountRepositories;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -58,18 +64,29 @@ public class ClientController {
         Client client = new Client(name, lastName, email, passwordEncoder.encode(password));
         clientRepositories.save(client);
 
+        String number;
+        do{
+            number = "VIN" + getAccountNumber(00000000,99999999);
+        }while(accountRepositories.existsByNumber(number));
+
+        Account account = new Account(number, LocalDate.now(),0);
+        client.addAcount(account);
+        accountRepositories.save(account);
+
         return new ResponseEntity<>("Te has registrado", HttpStatus.CREATED);
     }
 
     @GetMapping("/current")
     public ResponseEntity<Object> getOneClient(Authentication authentication){
 
-        Client client = clientRepositories.findByEmail(authentication.getName());
-        if(client != null){
+        Client client = clientRepositories.findByEmail(authentication.getName());//devuelve un cliente
             ClientDTO clientDTO = new ClientDTO(client);
             return new ResponseEntity<>(clientDTO, HttpStatus.OK);
-        }
 
-        return new ResponseEntity<>("client not found", HttpStatus.NOT_FOUND);
+
+    }
+
+    public int getAccountNumber(int min, int max){
+        return (int) ((Math.random() * (max - min)) + min);
     }
 }

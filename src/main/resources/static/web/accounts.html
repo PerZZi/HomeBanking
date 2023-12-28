@@ -25,30 +25,26 @@
                 <a class="text-white text-2xl" href="../web/account.html">Transaction</a>
                 <img src="../images/tarjeta-de-credito_2.png" alt="">
                 <a class="text-white text-2xl" href="./cards.html">Cards</a>
+                <button class="flex items-center" v-on:click="logout()"><img src="../images/cerrar-sesion (2).png"
+                        alt=""></button>
             </nav>
         </header>
 
         <main class="flex flex-col grow min-h-screen">
             <section class="flex flex-col items-center gap-4 h-[500px] w-full rounded-lg">
                 <h2 class="text-4xl text-blue-700">!Hola, {{data.name}}</h2>
+                <button @click="createAccount" class="bg-blue-700 text-white p-2 rounded-lg w-[200px]">Crear Cuenta</button>
                 <div class="flex flex-wrap justify-center items-center gap-4 my-10">
                     <template v-if="accounts.length > 0" v-for="account in accounts">
-                        <article
-                            class="flex flex-col justify-center items-center gap-4 bg-blue-700 rounded-lg px-2 h-[220px] w-[350px]">
-                            <h2 class="text-xl text-white w-full">Numero de Cuenta: {{account.number}}</h2>
-                            <div class="flex">
-                                <img src="../images/chip.png" alt="">
-                            </div>
-                            <h2 class="text-2xl text-white w-full ">Monto: {{formatBudget(account.balance)}}</h2>
-                            <h2 class="text-xl text-white w-full">Fecha de Creaccion: {{account.creationDate}}</h2>
-                            <p></p>
-                        </article>
-                    </template>
-                </div>
+                        <article class="flex flex-col justify-center items-center gap-4 bg-white rounded-lg px-2 h-[220px] w-[350px]">
+                            <h2 class="text-xl text-blue-700 w-full">Numero de Cuenta: {{account.number}}</h2>
+                            <h2 class="text-2xl text-blue-700 w-full ">Monto: {{formatBudget(account.balance)}}</h2>
+                            <h2 class="text-xl text-blue-700 w-full">Fecha de Creaccion: {{account.creationDate}}</h2>
 
-                <div class="flex gap-60">
-                    <template v-if="accounts.length > 0" v-for="account in accounts">
-                        <a v-bind:href="'./account.html?id=' + account.id" class="bg-blue-700 hover:bg-blue-700 hover:text-white p-2 rounded-lg w-[100px] text-white">Detalle</a>
+                            <div class="flex">
+                                <a v-bind:href="'./account.html?id=' + account.id" class="bg-blue-700 p-2 rounded-lg w-[100px] text-white">Detalle</a>
+                            </div>
+                        </article>
                     </template>
                 </div>
 

@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired
-    ClientRepositories clientRepositories;
+    private ClientRepositories clientRepositories;
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
@@ -27,10 +27,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             Client client = clientRepositories.findByEmail(inputName);
 
             if (client != null) {
-                //if(client.getEmail().contains("@admin.com")){
-                    //return new User(client.getEmail(), client.getPassword(),
-                    //AuthorityUtils.createAuthorityList());
-                //}
+
                 return new User(client.getEmail(), client.getPassword(),
 
                         AuthorityUtils.createAuthorityList(client.getRol().toString()));
@@ -44,7 +41,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {//metodo para cifras las contraseñas de los usuarios
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     }

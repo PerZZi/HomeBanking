@@ -26,6 +26,11 @@ let app = createApp({
     })
     .catch(error => console.log(error))
    },
+   createAccount(){
+    axios.post("/api/clients/current/accounts")
+    .then(response => console.log(response))
+    .catch(error => console.log(error))
+   },
    formatBudget(balance) {
     if (balance !== undefined && balance !== null) {
         return balance.toLocaleString("en-US", {
@@ -42,7 +47,16 @@ let app = createApp({
       console.log(response)
     })
     .catch(error => console.log(error))
-   }
+   },
+   logout(){
+    axios.post("/api/logout")
+        .then(response => {
+            console.log(response)
+            if (response.status == 200) {
+                window.location.href = "../index.html"
+            }
+        })
+}
 
   }
 }).mount('#app')
