@@ -41,16 +41,6 @@ let app = createApp({
         .catch(error => console.log(error))
     },
 
-    // getType(event){
-    //   this.type = event.target.value
-    //   console.log("type",this.type)
-    // },
-
-    // getColor(event){
-    //   this.color = event.target.value
-    //   console.log("colorType",this.color)
-    // },
-
     deleteClient() {
       axios.delete("/api/clients/current")
         .then(response => {
