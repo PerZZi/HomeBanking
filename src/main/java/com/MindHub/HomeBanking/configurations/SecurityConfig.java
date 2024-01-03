@@ -20,7 +20,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/index.html", "style.css","/js/login.js", "/js/tailwind.config.js","/images/**").permitAll()
-                .requestMatchers("/api/clients/current","/web/**","/js/**","/api/accounts/*/transactions","/api/clients/current/accounts","/api/clients/current/cards","/api/transactions").hasAuthority("CLIENT")
+                .requestMatchers("/api/clients/current","/web/**","/js/**","/api/accounts/*/transactions","/api/clients/current/accounts","/api/clients/current/cards").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .requestMatchers(HttpMethod.POST,"/api/clients/current/accounts", "/api/clients/current/cards","/api/transactions").hasAuthority("CLIENT")
                 .anyRequest().denyAll());

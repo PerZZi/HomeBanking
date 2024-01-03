@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<div id="app">
+
+    <body class="bg-neutral-200">
+        <header class="h-20 flex justify-between">
+            <div class="flex items-center">
+                <img src="./images/banco (1).png" alt="">
+                <h1 class="text-white text-4xl">HomeBanking</h1>
+            </div>
+
+            <nav class="text-xl text-blue-700 flex gap-4">
+                <img src="../images/usuario (1).png" alt="">
+                <a class="text-white text-2xl" href="../web/accounts.html">Accounts</a>
+                <img src="../images/transaccion (1).png" alt="">
+                <a class="text-white text-2xl" href="../web/account.html">Transaction</a>
+                <img src="../images/tarjeta-de-credito_2.png" alt="">
+                <a class="text-white text-2xl" href="./cards.html">Cards</a>
+                <button class="flex items-center" v-on:click="logout()"><img src="../images/cerrar-sesion (2).png"
+                        alt=""></button>
+            </nav>
+        </header>
+
+        <main class="h-full flex justify-center items-center flex-col min-h-screen gap-10">
+
+            <form class="flex flex-col justify-center items-center gap-20 bg-white w-[400px] h-[450px] rounded-lg">
+                <h2 class="text-2xl">Crear Tarjetas:</h2>
+                <select v-model="type" class="bg-blue-700 w-[200px] p-2 rounded-lg text-white" name="" id="type">
+                    <option value="CREDIT">Credit</option>
+                    <option value="DEBIT">Debit</option>
+                </select>
+                <select v-model="color" class="bg-blue-700 w-[200px] p-2 rounded-lg text-white" name="" id="colorType">
+                    <option value="GOLD">Gold</option>
+                    <option value="SILVER">Silver</option>
+                    <option value="TITANIUM">Titanium</option>
+                </select>
+                <button @click.prevent="createCard()" class="bg-blue-700 hover:bg-blue-900 text-white p-2 rounded-lg w-[200px]">Crear
+                    Card</button>
+            </form>
+
+        </main>
+
+        <footer class="h-10">
+            <h3 class="text-white text-2xl">WWW.HOMEBAKING.COM</h3>
+        </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="../js/tailwind.config.js"></script>
+<script src="../js/crate-cards.js"></script>
+</body>
+
+</html>
