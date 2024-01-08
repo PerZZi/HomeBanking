@@ -7,6 +7,8 @@ import com.MindHub.HomeBanking.models.Account;
 import com.MindHub.HomeBanking.models.Client;
 import com.MindHub.HomeBanking.repositories.AccountRepositories;
 import com.MindHub.HomeBanking.repositories.ClientRepositories;
+import com.MindHub.HomeBanking.service.AccountService;
+import com.MindHub.HomeBanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,37 +25,25 @@ import java.util.stream.Collectors;
 public class AccountController {
 
     @Autowired
-    private AccountRepositories accountRepositories;
+    private AccountService accountService;
 
     @Autowired
-    private ClientRepositories clientRepositories;
+    private ClientService clientService;
 
     @GetMapping("/accounts")
     public List<AccountDTO> getAllAccounts(){
-        return accountRepositories.findAll()
-                .stream()
-                .map(AccountDTO::new)
-                .collect(Collectors.toList());
-    }
-
-    @GetMapping("/accounts/{id}")
-    public AccountDTO getAccount(@PathVariable Long id){
-        return accountRepositories.findById(id).map(AccountDTO::new).orElse(null);
+        return accountService.getAllAccountDTO();
     }
 
     @GetMapping("/accounts/{id}/transactions")
     public List<TransactionDTO> getAccountTransactions(@PathVariable Long id) {
-        return accountRepositories.findById(id)
-                .map(account -> account.getTransactions().stream()
-                        .map(TransactionDTO::new)
-                        .collect(Collectors.toList()))
-                .orElse(Collections.emptyList());
+        return accountService.getAccountTransactionsDTO(id);
     }
 
     @PostMapping("clients/current/accounts")
     public ResponseEntity<String> createAccount(Authentication authentication){
 
-        Client client = clientRepositories.findByEmail(authentication.getName());
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
 
         if(client.getAcounts().size() >= 3){
             return new ResponseEntity<>("Se alcanzo limite de cuentas creadas se permiten hasta 3 cuentas", HttpStatus.FORBIDDEN);
@@ -62,11 +52,11 @@ public class AccountController {
         String number;
         do{
             number = "VIN" + getAccountNumber(00000000,99999999);
-        }while(accountRepositories.existsByNumber(number));
+        }while(accountService.existsByNumber(number));
 
         Account account = new Account(number,LocalDate.now(),0);
         client.addAcount(account);
-        accountRepositories.save(account);
+        accountService.saveAccount(account);
 
         return new ResponseEntity<>("Nueva cuenta creada", HttpStatus.CREATED);
     }
