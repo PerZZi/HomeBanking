@@ -35,6 +35,10 @@ public class LoanController {
     @Autowired
     private ClientLoanService clientLoanService;
 
+    @GetMapping("/loans")
+    public List<LoanDTO> getAllLoan() {
+        return loanService.getAllLoans();
+    }
 
     @PostMapping("/loans")
     @Transactional

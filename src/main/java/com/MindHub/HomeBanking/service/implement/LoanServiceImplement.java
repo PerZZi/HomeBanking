@@ -7,12 +7,25 @@ import com.MindHub.HomeBanking.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class LoanServiceImplement implements LoanService {
 
     @Autowired
     private LoanRepositories loanRepositories;
 
+
+    @Override
+    public List<LoanDTO> getAllLoans() {
+        return getLoan().stream().map(loan -> new LoanDTO(loan)).collect(Collectors.toList()) ;
+    }
+
+    @Override
+    public List<Loan> getLoan() {
+        return loanRepositories.findAll();
+    }
 
     @Override
     public Loan findById(Long id) {
