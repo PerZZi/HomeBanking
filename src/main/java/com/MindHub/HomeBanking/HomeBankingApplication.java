@@ -15,17 +15,17 @@ import java.util.List;
 
 @SpringBootApplication
 public class HomeBankingApplication {
-    @Autowired
-	private PasswordEncoder passwordEncoder;
+    /*@Autowired
+	private PasswordEncoder passwordEncoder;*/
 	public static void main(String[] args) {
 		SpringApplication.run(HomeBankingApplication.class, args);
 	}
 
-	@Bean
+	/*@Bean*/
 	public CommandLineRunner initData(ClientRepositories clientRepositories, AccountRepositories accountRepositories, TransactionRepositories transactionRepositories, ClientLoanRepositories clientLoanRepositories, LoanRepositories loanRepositories, CardRepositories cardRepositories){
 		return args -> {
 
-			Client client1 = new Client("Melba","Morel","melba@mindhub.com", passwordEncoder.encode("melba123"));
+			/*Client client1 = new Client("Melba","Morel","melba@mindhub.com", passwordEncoder.encode("melba123"));
 			Account cuenta1 =new Account("VIN-00001",LocalDate.now().plusDays(1),5000);
 			Account cuenta2 =new Account("VIN-00002",LocalDate.now().plusDays(2),7500);
 			clientRepositories.save(client1);
@@ -98,7 +98,7 @@ public class HomeBankingApplication {
 			Client admin = new Client("Xavi","Noche","xavi@admin.com",passwordEncoder.encode("admin"));
 			admin.setRol(RolType.ADMIN);
 
-			clientRepositories.save(admin);
+			clientRepositories.save(admin);*/
 
 		};
 	}

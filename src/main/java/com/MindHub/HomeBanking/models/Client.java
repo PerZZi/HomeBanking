@@ -12,7 +12,7 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ID;
+    private Long id;
     private String name;
     private String lastName;
     private String email;
@@ -35,8 +35,8 @@ public class Client {
         this.password = password;
     }
 
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -113,7 +113,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "ID=" + ID +
+                "ID=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
