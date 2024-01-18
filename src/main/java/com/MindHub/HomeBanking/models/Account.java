@@ -1,5 +1,6 @@
 package com.MindHub.HomeBanking.models;
 
+import com.MindHub.HomeBanking.dto.TypeAccount;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -15,6 +16,8 @@ public class Account {
     private String number;
     private LocalDate creationDate;
     private double balance;
+    private boolean StateAccount = true;
+    private TypeAccount typeAccount;
     @ManyToOne
     private Client client;
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
@@ -23,10 +26,12 @@ public class Account {
     public Account() {
     }
 
-    public Account(String number, LocalDate creationDate, double balance) {
+    public Account(String number, LocalDate creationDate, double balance, boolean StateAccount, TypeAccount typeAccount) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.StateAccount = StateAccount;
+        this.typeAccount = typeAccount;
     }
 
 
@@ -58,6 +63,22 @@ public class Account {
         this.balance = balance;
     }
 
+    public boolean isStateAccount() {
+        return StateAccount;
+    }
+
+    public void setStateAccount(boolean stateAccount) {
+        StateAccount = stateAccount;
+    }
+
+    public TypeAccount getTypeAccount() {
+        return typeAccount;
+    }
+
+    public void setTypeAccount(TypeAccount typeAccount) {
+        this.typeAccount = typeAccount;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -82,7 +103,7 @@ public class Account {
                 ", number='" + number + '\'' +
                 ", creationDate=" + creationDate +
                 ", balance=" + balance +
-                ", client=" + client +
+                ", StateAccount=" + StateAccount +
                 '}';
     }
 }

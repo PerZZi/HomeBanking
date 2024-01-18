@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create-Card</title>
+    <link rel="shortcut icon" href="../images/banco (1).png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<div id="app">
+
+    <body class="bg-neutral-200">
+        <header class="flex flex-col bg-blue-700 items-center lg:h-20 lg:flex lg:flex-row lg:justify-between">
+            <div class="flex items-center lg:ml-4">
+                <img src="../images/banco (1).png" alt="">
+                <h1 class="text-white text-4xl">HomeBanking</h1>
+            </div>
+
+            <nav
+                class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center lg:mr-4">
+                <img src="../images/usuario (1).png" alt="">
+                <a class="text-white text-2xl" href="./accounts.html">Go back to accounts</a>
+            </nav>
+        </header>
+
+        <main class="h-full flex justify-center items-center flex-col min-h-screen gap-10">
+
+            <form class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px] block text-sm font-medium text-gray-600">
+                <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">Delete Accounts:</h2>
+                <div class="mb-4">
+                  <label class="block text-sm font-medium text-blue-700">Account number:</label>
+                  <select v-model="accountNumber" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                    <option value="" disabled>Select an account</option>
+                    <template v-if="accounts.length > 0" v-for="account in accounts">
+                      <option :value="account.number">{{ account.number }}</option>
+                    </template>
+                  </select>
+                </div>
+                <div>
+                  <button type="button" @click="deleteAccount"
+                    class="w-full p-2 bg-blue-700 hover:bg-blue-900 text-white rounded-md focus:outline-none focus:ring focus:border-blue-300">
+                    Delete account
+                  </button>
+                </div>
+              </form>
+
+        </main>
+
+        <footer class="h-10 bg-blue-700 flex justify-center lg:h-20 lg:justify-center lg:items-center">
+            <h3 class="text-white text-2xl">WWW.HOMEBAKING.COM</h3>
+        </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="../js/tailwind.config.js"></script>
+<script src="../js/accounts.js"></script>
+</body>
+
+</html>

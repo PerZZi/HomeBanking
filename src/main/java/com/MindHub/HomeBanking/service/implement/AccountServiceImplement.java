@@ -42,8 +42,20 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
+    public Account findById(Long id) {
+        return accountRepositories.findById(id).orElse(null);
+    }
+
+    @Override
     public boolean existsByNumber(String number) {
         return accountRepositories.existsByNumber(number);
+    }
+
+    @Override
+    public void deleteAccount(Account account) {
+        Account accounts = accountRepositories.findByNumber(account.getNumber());
+        accounts.setStateAccount(false);
+        accountRepositories.save(accounts);
     }
 
     @Override

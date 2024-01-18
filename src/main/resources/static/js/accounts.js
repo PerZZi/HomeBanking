@@ -5,7 +5,9 @@ let app = createApp({
     return {
       data: [],
       accounts: [],
-      loans: []
+      loans: [],
+      accountNumber:[],
+      selectedType: "",
     }
   },
 
@@ -26,11 +28,27 @@ let app = createApp({
     })
     .catch(error => console.log(error))
    },
-   createAccount(){
-    axios.post("/api/clients/current/accounts")
-    .then(response => console.log(response))
+   createAccount() {
+      axios.post("/api/clients/current/accounts?typeAccount=" + this.selectedType)
+        .then(response => {
+          this.create = response.data;
+          if (response.status.toString().startsWith("2")) {
+            window.location.href = "/web/accounts.html"
+            this.loadData();
+          }
+        })
+        .catch(error => console.log(error));
+    },
+   deleteAccount(accountNumber){
+    axios.patch("/api/clients/current/accounts/delete?number=" + this.accountNumber)
+    .then(response =>{
+      console.log(response)
+      window.location.href = "/web/accounts.html"
+    })
     .catch(error => console.log(error))
    },
+   
+
    formatBudget(balance) {
     if (balance !== undefined && balance !== null) {
         return balance.toLocaleString("en-US", {

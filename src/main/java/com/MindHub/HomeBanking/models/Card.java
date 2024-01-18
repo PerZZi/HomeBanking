@@ -16,13 +16,14 @@ public class Card {
     private Integer cvv;
     private LocalDate fromDate;
     private LocalDate thruDate;
+    private boolean state = true;
     @ManyToOne
     private Client client;
 
     public Card() {
     }
 
-    public Card(String cardholder, CardType type, ColorType colorType, String number, Integer cvv, LocalDate fromDate, LocalDate thruDate) {
+    public Card(String cardholder, CardType type, ColorType colorType, String number, Integer cvv, LocalDate fromDate, LocalDate thruDate, boolean state) {
         this.cardholder = cardholder;
         this.type = type;
         this.colorType = colorType;
@@ -30,6 +31,7 @@ public class Card {
         this.cvv = cvv;
         this.fromDate = fromDate;
         this.thruDate = thruDate;
+        this.state = state;
     }
 
     public Long getId() {
@@ -92,6 +94,14 @@ public class Card {
         this.thruDate = thruDate;
     }
 
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -106,11 +116,12 @@ public class Card {
                 "id=" + id +
                 ", cardholder='" + cardholder + '\'' +
                 ", type=" + type +
-                ", color=" + colorType +
+                ", colorType=" + colorType +
                 ", number='" + number + '\'' +
                 ", cvv=" + cvv +
                 ", fromDate=" + fromDate +
                 ", thruDate=" + thruDate +
+                ", state=" + state +
                 '}';
     }
 }

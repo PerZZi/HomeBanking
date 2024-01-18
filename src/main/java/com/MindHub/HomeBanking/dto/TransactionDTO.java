@@ -15,6 +15,7 @@ public class TransactionDTO {
     private double amount;
     private String description;
     private LocalDateTime date;
+    private double balanceFinal;
 
 
     public TransactionDTO(Transaction transaction) {
@@ -23,6 +24,7 @@ public class TransactionDTO {
         amount = transaction.getAmount();
         description = transaction.getDescription();
         date = transaction.getDate();
+        balanceFinal = transaction.getBalanceFinal();
     }
 
     public Long getId() {
@@ -45,4 +47,7 @@ public class TransactionDTO {
         return date;
     }
 
+    public double getBalanceFinal() {
+        return balanceFinal;
+    }
 }

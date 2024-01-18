@@ -95,7 +95,7 @@ public class Client {
         this.cards = cards;
     }
 
-    public void addAcount(Account account){
+    public void addAccount(Account account){
         account.setClient(this);
         this.acounts.add(account);
     }
@@ -108,6 +108,16 @@ public class Client {
     public void addCard(Card card){
         card.setClient(this);
         this.cards.add(card);
+    }
+
+    public static String passwordValidator(String password) throws IllegalArgumentException{
+
+        String pass = password;
+
+        if(!pass.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%&*])[A-Z a-z\\d!@#$%&*]{8,}$")){
+            throw new IllegalArgumentException("password invalid");
+        }
+        return pass;
     }
 
     @Override

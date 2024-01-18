@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Transfer</title>
+    <link rel="shortcut icon" href="../images/banco (1).png" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -12,58 +13,57 @@
 
     <body class="bg-neutral-200">
         <header class="flex flex-col bg-blue-700 items-center lg:h-20 lg:flex lg:flex-row lg:justify-between">
-            <div class="flex items-center">
+            <div class="flex items-center lg:ml-4">
                 <img src="../images/banco (1).png" alt="">
                 <h1 class="text-white text-4xl">HomeBanking</h1>
             </div>
 
-            <nav class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center">
+            <nav class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center lg:mr-4">
                 <img src="../images/usuario (1).png" alt="">
                 <a class="text-white text-2xl" href="../web/accounts.html">Accounts</a>
-                <img src="../images/transaccion (1).png" alt="">
-                <a class="text-white text-2xl" href="./account.html">Loans</a>
+                <img src="../images/transferencia-de-dinero.png" alt="">
+                <a class="text-white text-2xl" href="./loan-application.html">Loans</a>
                 <img src="../images/tarjeta-de-credito_2.png" alt="">
                 <a class="text-white text-2xl" href="./cards.html">Cards</a>
-                <a class="text-white text-2xl" href="./transfer.html">Transfer</a>
-                <button class="flex items-center" v-on:click="logout()"><img src="../images/cerrar-sesion (2).png"
-                        alt=""></button>
+                <img src="../images/transaccion (1).png" alt="">
+                <a class="bg-green-500 text-white rounded-lg text-white text-2xl" href="./transfer.html">Transfer</a>
+                <button class="flex items-center text-2xl text-white" v-on:click="logout()"><img src="../images/cerrar-sesion (2).png"
+                        alt="">Logout</button>
             </nav>
         </header>
 
         <main class="h-full flex justify-center items-center flex-col min-h-screen gap-10">
 
-            <form class="flex flex-col items-center text-xl text-blue-700 gap-4 bg-white h[700px] w-[350px] rounded-lg shadow-lg">
-                <h2 class="text-2xl">Transaction</h2>
-                Account Origin:
-                <label>
-                    <select class="border-2 border-black p-1 w-[200px] rounded-lg text-black" v-model="accountOrigen">
+            <form class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px]">
+                <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">Transaction</h2>
+            
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-blue-700">Account Origin:</label>
+                    <select class="mt-1 block w-full p-2 border border-gray-300 rounded-md" v-model="accountOrigen">
                         <template v-if="accounts.length > 0" v-for="account in accounts">
-                            <option class="text-2xl parrafo">{{account.number}}</option>
+                            <option :value="account.number">{{account.number}}</option>
                         </template>
                     </select>
-                </label>
-
-                Amount:
-                <label>
-                    <input class="border-2 border-black p-1 rounded-lg text-black" v-model="amount" type="number"
-                        name="" id="">
-                </label>
-
-                Description:
-                <label>
-                    <input class="border-2 border-black p-1 rounded-lg text-black" v-model="description" type="text"
-                        name="" id="">
-                </label>
-
-                Account Destination:
-                <label>
-                    <label>
-                        <input class="border-2 border-black p-1 rounded-lg text-black" v-model="accountDestino" type="text" name="" id="">
-                    </label>
-                </label>
-
-                <button class="bg-blue-700 hover:bg-blue-900 text-white w-[200px] rounded-lg p-1"
-                    @click.prevent="createTransfer">Transfer</button>
+                </div>
+            
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-blue-700">Amount:</label>
+                    <input v-model="amount" type="number" required class="w-full px-4 py-2 rounded-md border border-gray-300">
+                </div>
+            
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-blue-700">Description:</label>
+                    <input v-model="description" type="text" required class="w-full px-4 py-2 rounded-md border border-gray-300">
+                </div>
+            
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-blue-700">Account Destination Number:</label>
+                    <input v-model="accountDestino" type="text" required class="w-full px-4 py-2 rounded-md border border-gray-300">
+                </div>
+            
+                <div>
+                    <button @click.prevent="createTransfer" type="button" class="w-full p-2 bg-blue-700 hover:bg-blue-900 text-white rounded-md focus:outline-none focus:ring focus:border-blue-300">Transfer</button>
+                </div>
             </form>
 
         </main>

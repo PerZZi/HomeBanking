@@ -4,24 +4,18 @@ import com.MindHub.HomeBanking.models.Loan;
 
 import java.util.List;
 
-public class LoanDTO {
+public class LoanAdminDTO {
 
-    private Long id;
     private String name;
     private double MaxAmount;
     private double percentage;
     private List<Integer> payments;
 
-    public LoanDTO(Loan loan) {
-        id = loan.getId();
+    public LoanAdminDTO(Loan loan) {
         name = loan.getName();
         MaxAmount = loan.getMaxAmount();
         percentage = loan.getPercentage();
         payments = loan.getPayments();
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {

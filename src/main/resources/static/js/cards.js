@@ -6,7 +6,8 @@ let app = createApp({
       data: [],
       cards: [],
       type: "",
-      color:""
+      color:"",
+      cardNumber:null
     }
   },
 
@@ -41,10 +42,19 @@ let app = createApp({
         .catch(error => console.log(error))
     },
 
+    deleteCard(cardNumber){
+      axios.patch("/api/clients/current/cards/delete?id=" + cardNumber)
+      .then(response => {
+        console.log(response)
+        window.location.href="/web/cards.html"
+      })
+      .catch(error => console.log(error))
+    },
+
     deleteClient() {
       axios.delete("/api/clients/current")
         .then(response => {
-          console.log(response)
+          this.loadData()
         })
         .catch(error => console.log(error))
     },

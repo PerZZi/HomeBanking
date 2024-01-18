@@ -3,16 +3,18 @@ package com.MindHub.HomeBanking.controllers;
 import com.MindHub.HomeBanking.models.*;
 import com.MindHub.HomeBanking.repositories.CardRepositories;
 import com.MindHub.HomeBanking.repositories.ClientRepositories;
+import com.MindHub.HomeBanking.service.CardService;
+import com.MindHub.HomeBanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+
+import static com.MindHub.HomeBanking.utils.Utils.GeneratedCardCvv;
+import static com.MindHub.HomeBanking.utils.Utils.getCardNumber;
 
 
 @RestController
@@ -20,10 +22,10 @@ import java.time.LocalDate;
 public class CardController {
 
     @Autowired
-    private CardRepositories cardRepositories;
+    private CardService cardService;
 
     @Autowired
-    private ClientRepositories clientRepositories;
+    private ClientService clientService;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<String> createCard(
@@ -31,7 +33,7 @@ public class CardController {
             @RequestParam ColorType colorType,
             Authentication authentication){
 
-        Client client = clientRepositories.findByEmail(authentication.getName());
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
 
         long colortype = client.getCards().stream()
                 .filter(card -> card.getColor() == colorType && card.getType() == type)
@@ -57,21 +59,25 @@ public class CardController {
         }
 
         String number = getCardNumber();
-        int cvv = (int)(Math.random() * 999 + 100);
+        int cvv = GeneratedCardCvv();
 
-        Card card = new Card(client.getName(),type,colorType,number,cvv, LocalDate.now(),LocalDate.now().plusYears(6));
+        Card card = new Card(client.getName(),type,colorType,number,cvv, LocalDate.now(),LocalDate.now().plusYears(6), true);
         client.addCard(card);
-        cardRepositories.save(card);
+        cardService.saveCard(card);
 
         return new ResponseEntity<>("Nueva tarjeta creada", HttpStatus.CREATED);
     }
 
-    private String getCardNumber(){
-        StringBuilder cardNumber = new StringBuilder();
-        for (int i = 0; i<4; i++){
-            int seccionDigitos = (int) (Math.random() * 9000 + 1000);
-            cardNumber.append(seccionDigitos).append("-");
+    @PatchMapping("/clients/current/cards/delete")
+    public ResponseEntity<String> deleteCard(@RequestParam Long id,
+                                             Authentication authentication){
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
+        Card card = cardService.findById(id);
+
+        if(card.isState() && card.getClient().getEmail().equals(authentication.getName())){
+            cardService.deleteCard(card);
+            return new ResponseEntity<>("Tarjeta eliminada", HttpStatus.OK);
         }
-        return cardNumber.substring(0,cardNumber.length()-1);
+        return new ResponseEntity<>("Tu tarjeta ya esta cancelada", HttpStatus.BAD_REQUEST);
     }
 }

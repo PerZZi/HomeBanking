@@ -17,7 +17,11 @@ public interface AccountService {
 
     Account findByNumber (String number);
 
+    Account findById (Long id);
+
     boolean existsByNumber (String number);
+
+    void deleteAccount(Account account);
 
     void saveAccount (Account account);
 }

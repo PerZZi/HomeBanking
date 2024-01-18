@@ -52,23 +52,29 @@ let app = createApp({
       console.log("password", this.password)
     },
 
-    register() {
-      axios.post("/api/clients?name=" + this.name + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
+    register()
+     {
+      const createClient = {
+        "name": this.name,
+        "lastName": this.lastName,
+        "email": this.email,
+        "password": this.password
+      }
+      axios.post("/api/clients", createClient)
         .then(response => {
           console.log(response)
-          
+          this.clearFields();
+          alert("Registro exitoso. ¡Bienvenido!");
         })
         .catch(response => console.log(response))
     },
-    logout(){
-      axios.post("/api/logout")
-          .then(response => {
-              console.log(response)
-              if (response.status == 200) {
-                  window.location.href = "../index.html"
-              }
-          })
-  },
+    clearFields() {
+      this.name = "";
+      this.lastName = "";
+      this.email = "";
+      this.password = "";
+    },
+
   }
 
 }).mount('#app')

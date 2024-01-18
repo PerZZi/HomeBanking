@@ -1,12 +1,10 @@
 package com.MindHub.HomeBanking.controllers;
 
 import com.MindHub.HomeBanking.dto.AccountDTO;
-import com.MindHub.HomeBanking.dto.ClientDTO;
 import com.MindHub.HomeBanking.dto.TransactionDTO;
+import com.MindHub.HomeBanking.dto.TypeAccount;
 import com.MindHub.HomeBanking.models.Account;
 import com.MindHub.HomeBanking.models.Client;
-import com.MindHub.HomeBanking.repositories.AccountRepositories;
-import com.MindHub.HomeBanking.repositories.ClientRepositories;
 import com.MindHub.HomeBanking.service.AccountService;
 import com.MindHub.HomeBanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+
+
+import static com.MindHub.HomeBanking.utils.Utils.numberAccount;
 
 @RestController
 @RequestMapping("/api")
@@ -41,7 +39,8 @@ public class AccountController {
     }
 
     @PostMapping("clients/current/accounts")
-    public ResponseEntity<String> createAccount(Authentication authentication){
+    public ResponseEntity<String> createAccount(Authentication authentication,
+                                                @RequestParam TypeAccount typeAccount){
 
         Client client = clientService.getAuthenticatedClient(authentication.getName());
 
@@ -51,17 +50,34 @@ public class AccountController {
 
         String number;
         do{
-            number = "VIN" + getAccountNumber(00000000,99999999);
+            number = numberAccount();
         }while(accountService.existsByNumber(number));
 
-        Account account = new Account(number,LocalDate.now(),0);
-        client.addAcount(account);
+        Account account = new Account(number,LocalDate.now(),0,true, typeAccount);
+        client.addAccount(account);
         accountService.saveAccount(account);
 
         return new ResponseEntity<>("Nueva cuenta creada", HttpStatus.CREATED);
     }
 
-    public int getAccountNumber(int min, int max){
-        return (int) ((Math.random() * (max - min)) + min);
+    @PatchMapping("clients/current/accounts/delete")
+    public ResponseEntity<String> deleteAccount(
+            @RequestParam String number,
+            Authentication authentication){
+
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
+        Account account = accountService.findByNumber(number);
+
+        if(account.isStateAccount() && account.getClient().getEmail().equals(authentication.getName())){
+            if(account.getBalance() == 0){
+                accountService.deleteAccount(account);
+                return new ResponseEntity<>("Cuenta eliminada", HttpStatus.OK);
+            }else{
+                return new ResponseEntity<>("No se puede eliminar la cuenta tiene saldo", HttpStatus.FORBIDDEN);
+            }
+        }
+
+        return new ResponseEntity<>("La cuenta ya fue eliminada", HttpStatus.BAD_REQUEST);
     }
+
 }

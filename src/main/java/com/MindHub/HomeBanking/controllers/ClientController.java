@@ -2,10 +2,9 @@ package com.MindHub.HomeBanking.controllers;
 
 import com.MindHub.HomeBanking.dto.ClientDTO;
 import com.MindHub.HomeBanking.dto.CreateClient;
+import com.MindHub.HomeBanking.dto.TypeAccount;
 import com.MindHub.HomeBanking.models.Account;
 import com.MindHub.HomeBanking.models.Client;
-import com.MindHub.HomeBanking.repositories.AccountRepositories;
-import com.MindHub.HomeBanking.repositories.ClientRepositories;
 import com.MindHub.HomeBanking.service.AccountService;
 import com.MindHub.HomeBanking.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static com.MindHub.HomeBanking.utils.Utils.numberAccount;
 
 @RestController
 @RequestMapping("/api/clients")
@@ -57,16 +57,16 @@ public class ClientController {
             return new ResponseEntity<>("this email is used", HttpStatus.FORBIDDEN);
         }
 
-        Client client = new Client(createClient.getName(), createClient.getName(), createClient.getEmail(), passwordEncoder.encode(createClient.getPassword()));
+        Client client = new Client(createClient.getName(), createClient.getName(), createClient.getEmail(), passwordEncoder.encode(passwordValidator(createClient.getPassword())));
         clientService.saveClient(client);
 
         String number;
         do{
-            number = "VIN" + getAccountNumber(00000000,99999999);
+            number = numberAccount ();
         }while(accountService.existsByNumber(number));
 
-        Account account = new Account(number, LocalDate.now(),0);
-        client.addAcount(account);
+        Account account = new Account(number, LocalDate.now(),0,true, TypeAccount.CURRENT);
+        client.addAccount(account);
         accountService.saveAccount(account);
 
         return new ResponseEntity<>("Te has registrado", HttpStatus.CREATED);
@@ -82,7 +82,13 @@ public class ClientController {
 
     }
 
-    public int getAccountNumber(int min, int max){
-        return (int) ((Math.random() * (max - min)) + min);
+    public static String passwordValidator(String password) throws IllegalArgumentException{
+
+        String pass = password;
+
+        if(!pass.matches("^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%&*])[A-Z a-z\\d!@#$%&*]{8,}$")){
+            throw new IllegalArgumentException("password invalid");
+        }
+        return pass;
     }
 }

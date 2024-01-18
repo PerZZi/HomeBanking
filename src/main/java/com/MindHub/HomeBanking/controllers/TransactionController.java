@@ -69,8 +69,12 @@ public class TransactionController {
             return new ResponseEntity<>("La cuenta de origen no pertenece al cliente autenticado", HttpStatus.FORBIDDEN);
         }
 
-        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, createTransaction.getAmount() , createTransaction.getDescription() , LocalDateTime.now());
-        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, createTransaction.getAmount() , createTransaction.getDescription() , LocalDateTime.now());
+        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, createTransaction.getAmount() , createTransaction.getDescription() , LocalDateTime.now(),0);
+        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, createTransaction.getAmount() , createTransaction.getDescription() , LocalDateTime.now(),0);
+
+        transactionDebit.setBalanceFinal(originAccount.getBalance() - createTransaction.getAmount());
+        transactionCredit.setBalanceFinal(destinationAccount.getBalance() + createTransaction.getAmount());
+
         originAccount.addTransaction(transactionDebit);
         destinationAccount.addTransaction(transactionCredit);
         transactionService.saveTransaction(transactionCredit);

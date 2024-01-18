@@ -3,11 +3,11 @@ const app = createApp({
     data() {
         return {
             data: [],
-            selectLoan: "1",
+            selectLoan: "-1",
             amount: "",
             accountDest: "",
-            payments: "1",
-            paymentsFilter: "1",
+            SelectPayment: "-1",
+            paymentsFilter: "-1",
 
         }
     },
@@ -19,9 +19,6 @@ const app = createApp({
             axios.get("/api/loans")
                 .then(response => {
                     this.data = response.data
-                    this.payments = response.data
-                    console.log("hola", this.payments)
-
                     console.log(this.data)
                 })
                 .catch(error => {
@@ -29,23 +26,36 @@ const app = createApp({
                 })
         },
         Payments() {
-            this.paymentsFilter = this.data.filter(loan => { return this.selectLoan == loan.id })[0]
+            const filter = this.data.find(loan => loan.id  == this.selectLoan)
+            this.paymentsFilter = filter.payments
         },
         createLoans() {
             const body = {
                 "id": this.selectLoan,
                 "amount": this.amount,
-                "payments": this.payments,
+                "payments": this.SelectPayment,
                 "accountDestination": this.accountDest
             }
             axios.post("/api/loans", body)
                 .then(response => {
                     this.data = response.data
+                    window.location.href="/web/accounts.html"
                     console.log(this.data)
                 })
                 .catch(error => {
                     console.log(error)
                 })
+
+                
         },
+        logout(){
+            axios.post("/api/logout")
+                .then(response => {
+                    console.log(response)
+                    if (response.status == 200) {
+                        window.location.href = "../index.html"
+                    }
+                })
+            }
     }
 }).mount('#app')

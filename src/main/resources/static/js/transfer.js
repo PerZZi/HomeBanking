@@ -28,12 +28,27 @@ let app = createApp({
     },
 
     createTransfer() {
-      axios.post("/api/transactions?amount=" + this.amount + "&description=" + this.description + "&accountOrigin=" + this.accountOrigen + "&accountDestination=" + this.accountDestino)
+      const CreateTransaction = {
+        "amount": this.amount,
+        "description": this.description,
+        "accountOrigin": this.accountOrigen,
+        "accountDestination": this.accountDestino
+      }
+      axios.post("/api/transactions",CreateTransaction)
         .then(response => {
           console.log(response)
           window.location.href = "/web/accounts.html"
         })
         .catch(error => console.log(error))
     },
+    logout(){
+      axios.post("/api/logout")
+          .then(response => {
+              console.log(response)
+              if (response.status == 200) {
+                  window.location.href = "../index.html"
+              }
+          })
+      }
   }
 }).mount('#app')

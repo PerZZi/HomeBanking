@@ -18,36 +18,30 @@
                 <h1 class="text-white text-4xl">HomeBanking</h1>
             </div>
 
-            <nav class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center lg:mr-4">
-                <img src="../images/tarjeta-de-credito_2.png" alt="">
-                <a class="text-white text-2xl" href="./cards.html">Go back to cards</a>
+            <nav
+                class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center lg:mr-4">
+                <img src="../images/usuario (1).png" alt="">
+                <a class="text-white text-2xl" href="./accounts.html">Go back to accounts</a>
             </nav>
         </header>
 
         <main class="h-full flex justify-center items-center flex-col min-h-screen gap-10">
 
             <form class="max-w-md mx-auto bg-white p-6 rounded-md shadow-lg sm:w-[600px] block text-sm font-medium text-gray-600">
-                <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">Create Cards:</h2>
-                
+                <h2 class="text-2xl font-bold mb-4 text-center text-blue-700">Create accounts:</h2>
                 <div class="mb-4">
-                    <label class="block text-sm font-medium text-blue-700">Type:</label>
-                    <select v-model="type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="CREDIT">Credit</option>
-                        <option value="DEBIT">Debit</option>
+                    <label class="block text-sm font-medium text-blue-700">Account Type:</label>
+                    <select v-model="selectedType" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+                        <option value="" disabled>Select an account</option>
+                        <option value="CURRENT">CURRENT</option>
+                        <option value="SAVING">SAVING</option>
                     </select>
                 </div>
-            
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-blue-700">Color:</label>
-                    <select v-model="color" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-                        <option value="GOLD">Gold</option>
-                        <option value="SILVER">Silver</option>
-                        <option value="TITANIUM">Titanium</option>
-                    </select>
-                </div>
-            
                 <div>
-                    <button @click.prevent="createCard()" class="w-full p-2 bg-blue-700 hover:bg-blue-900 text-white rounded-md focus:outline-none focus:ring focus:border-blue-300">Create Card</button>
+                    <button type="button" @click="createAccount(selectedType)"
+                            class="w-full p-2 bg-blue-700 hover:bg-blue-900 text-white rounded-md focus:outline-none focus:ring focus:border-blue-300">
+                        Create account
+                    </button>
                 </div>
             </form>
 
@@ -62,7 +56,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="../js/tailwind.config.js"></script>
-<script src="../js/crate-cards.js"></script>
+<script src="../js/accounts.js"></script>
 </body>
 
 </html>

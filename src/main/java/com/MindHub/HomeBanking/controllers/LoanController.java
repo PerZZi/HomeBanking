@@ -1,5 +1,6 @@
 package com.MindHub.HomeBanking.controllers;
 
+import com.MindHub.HomeBanking.dto.LoanAdminDTO;
 import com.MindHub.HomeBanking.dto.LoanApplicationDTO;
 import com.MindHub.HomeBanking.dto.LoanDTO;
 import com.MindHub.HomeBanking.models.*;
@@ -47,9 +48,9 @@ public class LoanController {
             Authentication authentication){
 
         Client client = clientService.getAuthenticatedClient(authentication.getName());
-        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount()*1.2, loanApplicationDTO.getPayments());
-        Account accountDestination = accountService.findByNumber(loanApplicationDTO.getAccountDestination());
         Loan loan = loanService.findById(loanApplicationDTO.getId());
+        ClientLoan clientLoan = new ClientLoan(loanApplicationDTO.getAmount() * loan.getPercentage() , loanApplicationDTO.getPayments());
+        Account accountDestination = accountService.findByNumber(loanApplicationDTO.getAccountDestination());
 
         if(loanApplicationDTO.getAmount() <= 0){
             return new ResponseEntity<>("El monto no puede estar vacio", HttpStatus.FORBIDDEN);
@@ -75,11 +76,27 @@ public class LoanController {
         loan.addClientLoan(clientLoan);
         clientLoanService.saveClientLoan(clientLoan);
 
-        Transaction transaction = new Transaction(TransactionType.CREDIT, loanApplicationDTO.getAmount(), loan.getName() + "prestamo aprobado", LocalDateTime.now());
+        Transaction transaction = new Transaction(TransactionType.CREDIT, loanApplicationDTO.getAmount(), loan.getName() + "prestamo aprobado", LocalDateTime.now(),0);
+        transaction.setBalanceFinal(accountDestination.getBalance() + loanApplicationDTO.getAmount());
+        accountDestination.addTransaction(transaction);
+        transactionService.saveTransaction(transaction);
         accountDestination.setBalance(accountDestination.getBalance()+ loanApplicationDTO.getAmount());
         accountService.saveAccount(accountDestination);
 
         return new ResponseEntity<>("Nuevo prestamo creado", HttpStatus.CREATED);
     }
+
+    /*@PostMapping("/loans/admin")
+    @Transactional
+    public ResponseEntity<Object> createLoanAdmin(
+            @RequestBody LoanAdminDTO loanAdminDTO,
+            Authentication authentication){
+
+        Client client = clientService.getAuthenticatedClient(authentication.getName());
+
+        if(client.getRol().equals()){
+
+        }
+    }*/
 
 }

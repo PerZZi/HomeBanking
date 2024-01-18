@@ -15,6 +15,8 @@ public class AccountDTO {
     private String number;
     private LocalDate creationDate;
     private double balance;
+    private boolean StateAccount;
+    private TypeAccount typeAccount;
     private List<TransactionDTO> transactions;
 
 
@@ -23,8 +25,11 @@ public class AccountDTO {
         number = account.getNumber();
         creationDate = account.getCreationDate();
         balance = account.getBalance();
+        StateAccount = account.isStateAccount();
+        typeAccount = account.getTypeAccount();
         transactions = account.getTransactions().stream()
-                .map(transaction -> new TransactionDTO(transaction))
+                .filter(accountDTO -> account.isStateAccount())
+                .map(TransactionDTO::new)
                 .collect(Collectors.toList());
     }
 
@@ -42,6 +47,14 @@ public class AccountDTO {
 
     public double getBalance() {
         return balance;
+    }
+
+    public boolean isStateAccount() {
+        return StateAccount;
+    }
+
+    public TypeAccount getTypeAccount() {
+        return typeAccount;
     }
 
     public List<TransactionDTO> getTransactions() {

@@ -14,25 +14,26 @@
     <body class="bg-neutral-200">
 
         <header class="flex flex-col bg-blue-700 items-center lg:h-20 lg:flex lg:flex-row lg:justify-between">
-            <div class="flex items-center">
+            <div class="flex items-center lg:ml-4">
                 <img src="../images/banco (1).png" alt="">
                 <h1 class="text-white text-4xl">HomeBanking</h1>
             </div>
 
-            <nav class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center">
+            <nav class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center lg:mr-4">
                 <img src="../images/usuario (1).png" alt="">
                 <a class="text-white text-2xl" href="../web/accounts.html">Accounts</a>
-                <img src="../images/transaccion (1).png" alt="">
-                <a class="text-white text-2xl" href="../web/account.html">Loans</a>
+                <img src="../images/transferencia-de-dinero.png" alt="">
+                <a class="text-white text-2xl" href="../web/loan-application.html">Loans</a>
                 <img src="../images/tarjeta-de-credito_2.png" alt="">
                 <a class="text-white text-2xl" href="./cards.html">Cards</a>
+                <img src="../images/transaccion (1).png" alt="">
                 <a class="text-white text-2xl" href="./transfer.html">Transfer</a>
-                <button class="flex items-center" v-on:click="logout()"><img src="../images/cerrar-sesion (2).png" alt=""></button>
+                <button class="flex items-center text-2xl text-white" v-on:click="logout()"><img src="../images/cerrar-sesion (2).png" alt="">Logout</button>
             </nav>
         </header>
 
         <main class="flex flex-col grow min-h-screen">
-            <div class="lg:flex lg:justify-center">
+            <div class="flex justify-center lg:flex lg:justify-center lg:mt-20">
             <table class="bg-white rounded-lg lg:w-[600px]">
                 <thead class="bg-gray-100">
                     <tr class="text-left">
@@ -40,6 +41,7 @@
                         <th class="py-2 px-4 text-blue-700">Amount</th>
                         <th class="py-2 px-4 text-blue-700">Date</th>
                         <th class="py-2 px-4 text-blue-700">Description</th>
+                        <th class="py-2 px-4 text-blue-700">Balance</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,6 +54,7 @@
                             <td class="py-2 px-4">{{ transaction.amount }}</td>
                             <td class="py-2 px-4">{{ transaction.date }}</td>
                             <td class="py-2 px-4">{{ transaction.description }}</td>
+                            <td class="py-2 px-4">{{ transaction.balanceFinal }}</td>
                         </tr>
                     </template>
                 </tbody>

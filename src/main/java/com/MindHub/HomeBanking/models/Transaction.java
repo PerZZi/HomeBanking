@@ -15,17 +15,19 @@ public class Transaction {
     private double amount;
     private String description;
     private LocalDateTime date;
+    private double balanceFinal;
     @ManyToOne
     private Account account;
 
     public Transaction() {
     }
 
-    public Transaction(TransactionType type, double amount, String description, LocalDateTime date) {
+    public Transaction(TransactionType type, double amount, String description, LocalDateTime date, double balanceFinal) {
         this.type = type;
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.balanceFinal = balanceFinal;
     }
 
     public Long getId() {
@@ -64,6 +66,14 @@ public class Transaction {
         this.date = date;
     }
 
+    public double getBalanceFinal() {
+        return balanceFinal;
+    }
+
+    public void setBalanceFinal(double balanceFinal) {
+        this.balanceFinal = balanceFinal;
+    }
+
     public Account getAccount() {
         return account;
     }
@@ -80,7 +90,7 @@ public class Transaction {
                 ", amount=" + amount +
                 ", description='" + description + '\'' +
                 ", date=" + date +
-                ", account=" + account +
+                ", balanceFinal=" + balanceFinal +
                 '}';
     }
 }

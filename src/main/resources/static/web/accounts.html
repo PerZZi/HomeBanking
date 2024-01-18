@@ -13,43 +13,62 @@
 
     <body class="bg-neutral-200">
         <header class="flex flex-col bg-blue-700 items-center lg:h-20 lg:flex lg:flex-row lg:justify-between">
-            <div class="flex items-center">
+            <div class="flex items-center lg:ml-4">
                 <img src="../images/banco (1).png" alt="">
                 <h1 class="text-white text-4xl">HomeBanking</h1>
             </div>
 
-            <nav class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center">
+            <nav
+                class="text-xl text-blue-700 flex flex-col gap-4 items-center lg:flex lg:flex-row lg:items-center lg:mr-4">
                 <img src="../images/usuario (1).png" alt="">
-                <a class="text-white text-2xl" href="../web/accounts.html">Accounts</a>
-                <img src="../images/transaccion (1).png" alt="">
-                <a class="text-white text-2xl" href="./account.html">Loans</a>
+                <a class="bg-green-500 text-white rounded-lg text-2xl" href="../web/accounts.html">Accounts</a>
+                <img src="../images/transferencia-de-dinero.png" alt="">
+                <a class="text-white text-2xl" href="../web/loan-application.html">Loans</a>
                 <img src="../images/tarjeta-de-credito_2.png" alt="">
                 <a class="text-white text-2xl" href="./cards.html">Cards</a>
+                <img src="../images/transaccion (1).png" alt="">
                 <a class="text-white text-2xl" href="./transfer.html">Transfer</a>
-                <button class="flex items-center" v-on:click="logout()"><img src="../images/cerrar-sesion (2).png"
-                        alt=""></button>
+                <button class="flex items-center text-2xl text-white" v-on:click="logout()"><img
+                        src="../images/cerrar-sesion (2).png" alt="">Logout</button>
             </nav>
         </header>
 
         <main class="flex flex-col grow min-h-screen">
             <section class="flex flex-col items-center gap-4 rounded-lg">
-                <h2 class="text-4xl text-blue-700">!Hola, {{data.name}}</h2>
-                <button @click="createAccount" class="bg-blue-700 hover:bg-blue-900 text-white p-2 rounded-lg w-[200px]">Crear Cuenta</button>
+                <h2 class="text-4xl text-blue-700">!Hello, {{data.name}}</h2>
+
+                <div class="flex flex-col gap-10 lg:flex lg:flex-row lg:gap-10">
+                    <a href="./create-account.html">
+                    <button
+                        class="bg-blue-700 hover:bg-blue-900 text-white p-2 rounded-lg w-[200px]">Create Account</button>
+                    </a>
+
+                    <a href="./delete-account.html">
+                        <button
+                            class="bg-blue-700 hover:bg-blue-900 text-white p-2 rounded-lg w-[200px]">Delete Account</button>
+                    </a>
+                </div>
+
                 <div class="flex flex-wrap justify-center items-center gap-4">
                     <template v-if="accounts.length > 0" v-for="account in accounts">
-                        <article class="flex flex-col justify-center items-center gap-4 bg-white rounded-lg px-2 h-[220px] w-[350px]">
-                            <h2 class="text-xl text-blue-700 w-full">Numero de Cuenta: {{account.number}}</h2>
-                            <h2 class="text-2xl text-blue-700 w-full ">Monto: {{formatBudget(account.balance)}}</h2>
-                            <h2 class="text-xl text-blue-700 w-full">Fecha de Creaccion: {{account.creationDate}}</h2>
+                        <article
+                            class="flex flex-col justify-center items-center gap-4 bg-white rounded-lg px-2 h-[250px] w-[350px]">
+                            <h2 class="text-xl text-blue-700 w-full">Type account: {{account.typeAccount}}</h2>
+                            <h2 class="text-xl text-blue-700 w-full">Number account: {{account.number}}</h2>
+                            <h2 class="text-2xl text-blue-700 w-full ">Amount: {{formatBudget(account.balance)}}</h2>
+                            <h2 class="text-xl text-blue-700 w-full">Creation date: {{account.creationDate}}</h2>
 
                             <div class="flex">
-                                <a v-bind:href="'./account.html?id=' + account.id" class="flex justify-center bg-blue-700 hover:bg-blue-900 p-2 rounded-lg w-[100px] text-white">Detalle</a>
+                                <a v-bind:href="'./account.html?id=' + account.id"
+                                    class="flex justify-center bg-blue-700 hover:bg-blue-900 p-2 rounded-lg w-[100px] text-white">Detail</a>
                             </div>
                         </article>
                     </template>
                 </div>
 
-                <button class="bg-blue-700 hover:bg-blue-900 p-2 text-white rounded-lg w-[200px]"><a href="./loan-application.html">Apply</a></button>
+                <a href="./loan-application.html">
+                    <button class="bg-blue-700 hover:bg-blue-900 p-2 text-white rounded-lg w-[200px]">Apply</button>
+                </a>
                 <table class="bg-white rounded-lg lg:w-[600px]">
                     <thead class="bg-gray-100">
                         <tr class="text-left">
