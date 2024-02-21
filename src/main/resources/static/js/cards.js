@@ -7,7 +7,8 @@ let app = createApp({
       cards: [],
       type: "",
       color:"",
-      cardNumber:null
+      cardNumber:null,
+      numCards: 0
     }
   },
 
@@ -22,6 +23,7 @@ let app = createApp({
           this.data = response.data
           console.log(this.data)
           this.cards = this.data.cards
+          this.numCards = this.cards.length
           console.log(this.cards)
         })
         .catch(error => console.log(error))
@@ -46,7 +48,10 @@ let app = createApp({
       axios.patch("/api/clients/current/cards/delete?id=" + cardNumber)
       .then(response => {
         console.log(response)
-        window.location.href="/web/cards.html"
+        this.cardDeleteAlert()
+        setTimeout(() => {
+          window.location.href="/web/cards.html"
+        }, 1700)
       })
       .catch(error => console.log(error))
     },
@@ -66,6 +71,25 @@ let app = createApp({
             window.location.href = "../index.html"
           }
         })
+    },
+    cardDeleteAlert(){
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }
+      });
     }
 
   }

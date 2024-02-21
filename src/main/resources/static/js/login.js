@@ -9,7 +9,8 @@ let app = createApp({
       email: "",
       password: "",
       email1: "",
-      password1: ""
+      password1: "",
+      currentForm: 'registerForm'
     }
   },
 
@@ -20,9 +21,16 @@ let app = createApp({
       axios.post("/api/login?email=" + this.email1 + "&password=" + this.password1)
         .then(response => {
           console.log(response)
-          window.location.href = "/web/accounts.html"
+          this.loginAlert()
+          setTimeout(() => {
+            window.location.href = "/web/accounts.html"
+          }, 1700)
         })
-        .catch(response => console.log(response))
+        .catch(response => {
+          console.log(response)
+          this.loginErrorAlert()
+        }
+        )
     },
     getName(event) {
       this.name = event.target.value
@@ -52,8 +60,7 @@ let app = createApp({
       console.log("password", this.password)
     },
 
-    register()
-     {
+    register() {
       const createClient = {
         "name": this.name,
         "lastName": this.lastName,
@@ -64,7 +71,11 @@ let app = createApp({
         .then(response => {
           console.log(response)
           this.clearFields();
-          alert("Registro exitoso. ¡Bienvenido!");
+          this.registerAlert();
+          setTimeout(() => {
+            
+          }, 1700)
+          // alert("Registro exitoso. ¡Bienvenido!");
         })
         .catch(response => console.log(response))
     },
@@ -73,6 +84,54 @@ let app = createApp({
       this.lastName = "";
       this.email = "";
       this.password = "";
+    },
+
+    loginAlert() {
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Successful Login",
+        showConfirmButton: false,
+      });
+    },
+
+    loginErrorAlert() {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+    },
+
+    registerAlert() {
+      Swal.fire({
+        position: "top-center",
+        icon: "success",
+        title: "Successful Registration",
+        showConfirmButton: false,
+      });
+    },
+
+    registerErrorAlert() {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        footer: '<a href="#">Why do I have this issue?</a>'
+      });
+    },
+
+    toggleForm(event) {
+
+      const loginButton = document.querySelector(".login");
+      const registerButton = document.querySelector(".register");
+
+      if (event.target == loginButton) {
+        this.currentForm = 'loginForm';
+      } else if (event.target == registerButton) {
+        this.currentForm = 'registerForm';
+      }
     },
 
   }
